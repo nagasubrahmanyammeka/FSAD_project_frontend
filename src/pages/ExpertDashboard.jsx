@@ -41,7 +41,7 @@ const ExpertDashboard = () => {
             gap: "15px",
           }}
         >
-          {/* ✅ Educational Guidance Card */}
+          
           <div
             className="card"
             style={{

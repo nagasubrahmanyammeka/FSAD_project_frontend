@@ -99,7 +99,7 @@ const AdminDashboard = () => {
     fetchFeedbacks();
   }, []);
 
-  //  READ
+  
   const fetchUsers = async () => {
     try {
       const res = await axios.get(`${API}/users`);
@@ -128,12 +128,12 @@ const AdminDashboard = () => {
     }
   };
 
-  // INPUT CHANGE
+  
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // CREATE
+  
   const handleAdd = async () => {
     try {
       const payload = { ...form, role: form.role.toUpperCase() };
@@ -150,7 +150,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // EDIT
+  
   const handleEdit = (user) => {
     setForm({
       id: user.id || user._id,
@@ -165,7 +165,7 @@ const AdminDashboard = () => {
     setIsEditing(true);
   };
 
-  // UPDATE
+  
   const handleUpdate = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -199,7 +199,7 @@ const AdminDashboard = () => {
   }
 };
 
-  // ✅ DELETE
+  
   const handleDelete = async (id) => {
     if (!window.confirm("Delete user?")) return;
 
@@ -212,7 +212,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // ✅ RESET
+  
   const resetForm = () => {
     setForm({
       id: null,
@@ -234,7 +234,7 @@ const AdminDashboard = () => {
       <div style={styles.card}>
         <h1>Admin Dashboard</h1>
 
-        {/* STATS */}
+        
         <div style={styles.statsGrid}>
           <div style={styles.statCard}>Total: {stats.total}</div>
           <div style={styles.statCard}>Farmers: {stats.farmers}</div>
@@ -242,7 +242,7 @@ const AdminDashboard = () => {
           <div style={styles.statCard}>Public: {stats.public}</div>
         </div>
 
-        {/* FORM */}
+        
         <h2>{isEditing ? "Update User" : "Add User"}</h2>
 
         <input style={styles.input} name="name" placeholder="Name" value={form.name} onChange={handleChange} />
@@ -270,7 +270,7 @@ const AdminDashboard = () => {
           <button style={{ ...styles.button, ...styles.addBtn }} onClick={handleAdd}>Add User</button>
         )}
 
-        {/* TABLE */}
+        
         <table style={styles.table}>
           <thead>
             <tr>

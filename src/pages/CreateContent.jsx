@@ -19,7 +19,7 @@ const CreateContent = () => {
       return;
     }
 
-    // 🔹 Just simulate upload (no backend)
+  
     const contentData = {
       fileName: file.name,
       description,
@@ -30,12 +30,12 @@ const CreateContent = () => {
 
     alert("Content uploaded successfully! (Frontend only)");
 
-    // Optional: clear form
+    
     setFile(null);
     setDescription("");
     setAuthor("");
 
-    // Navigate to content page
+    
     navigate("/all-content");
   };
 

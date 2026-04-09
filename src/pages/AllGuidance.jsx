@@ -5,7 +5,7 @@ const AllGuidance = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // 🔹 FETCH FROM BACKEND
+  
   useEffect(() => {
     const fetchGuidance = async () => {
       try {
@@ -17,7 +17,7 @@ const AllGuidance = () => {
 
         const data = await res.json();
 
-        setGuidance(data); // ✅ store backend data
+        setGuidance(data); 
       } catch (err) {
         console.error(err);
         setError("Unable to load guidance");
@@ -29,12 +29,12 @@ const AllGuidance = () => {
     fetchGuidance();
   }, []);
 
-  // 🔹 LOADING STATE
+  
   if (loading) {
     return <h2 style={{ textAlign: "center" }}>Loading guidance...</h2>;
   }
 
-  // 🔹 ERROR STATE
+
   if (error) {
     return (
       <h2 style={{ textAlign: "center", color: "red" }}>

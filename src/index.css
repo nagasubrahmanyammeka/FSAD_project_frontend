@@ -1,3 +1,17 @@
+/* Target actual GTranslate widget */
+.gt_float_switcher {
+  position: fixed !important;
+  top: 15px !important;
+  right: 10px !important;
+  z-index: 9999 !important;
+}
+
+/* Optional: remove unwanted spacing */
+.gt_float_switcher .gt_options {
+  right: 0 !important;
+}
+
+
 html, body, #root {
   height: 100%;
   margin: 0;

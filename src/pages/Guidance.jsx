@@ -20,7 +20,7 @@ const Guidance = () => {
     });
   };
 
-  // 🔹 Handle submit
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,7 +43,7 @@ const Guidance = () => {
 
       setSuccess("Guidance request submitted successfully!");
 
-      // 🔹 Clear form
+      
       setFormData({
         name: "",
         email: "",
@@ -52,7 +52,7 @@ const Guidance = () => {
     } catch (err) {
       console.error("❌ Error:", err);
 
-      // 🔹 Better error handling
+      
       if (err.response) {
         setError(
           err.response.data?.message ||
