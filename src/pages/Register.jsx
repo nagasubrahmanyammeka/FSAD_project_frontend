@@ -130,20 +130,21 @@ const Register = () => {
         </label>
 
         <label style={{ display: 'block', marginBottom: '10px' }}>
-          <span>Phone:</span>
-          <input
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            style={{
-              marginLeft: '10px',
-              padding: '5px',
-              borderRadius: '4px',
-              border: '1px solid #ccc',
-            }}
-          />
-        </label>
+  <span>Phone:</span>
+  <input
+    name="phone"
+    value={formData.phone}
+    onChange={handleChange}
+    required
+    maxLength={10}
+    style={{
+      marginLeft: '10px',
+      padding: '5px',
+      borderRadius: '4px',
+      border: '1px solid #ccc',
+    }}
+  />
+</label>
 
         <label style={{ display: 'block', marginBottom: '10px' }}>
           <span>Location:</span>
