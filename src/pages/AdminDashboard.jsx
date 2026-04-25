@@ -63,6 +63,10 @@ const styles = {
     background: "#f39c12",
     color: "#fff"
   },
+  feedbackBtn: {
+    background: "#8e44ad",
+    color: "#fff"
+  },
   table: {
     width: "100%",
     borderCollapse: "collapse"
@@ -79,6 +83,10 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({});
   const [loading, setLoading] = useState(true);
   const [feedbacks, setFeedbacks] = useState([]);
+
+  const [selectedFeedbacks, setSelectedFeedbacks] = useState([]);
+  const [showFeedbacks, setShowFeedbacks] = useState(false);
+
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -99,7 +107,6 @@ const AdminDashboard = () => {
     fetchFeedbacks();
   }, []);
 
-  
   const fetchUsers = async () => {
     try {
       const res = await axios.get(`${API}/users`);
@@ -128,16 +135,14 @@ const AdminDashboard = () => {
     }
   };
 
-  
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  
   const handleAdd = async () => {
     try {
       const payload = { ...form, role: form.role.toUpperCase() };
-      delete payload.id; // Don't send null ID for new users
+      delete payload.id;
 
       await axios.post(`${API}/users`, payload);
 
@@ -146,11 +151,10 @@ const AdminDashboard = () => {
       fetchUsers();
     } catch (err) {
       console.error(err);
-      alert("Add failed: " + (err.response?.data?.message || err.message));
+      alert("Add failed");
     }
   };
 
-  
   const handleEdit = (user) => {
     setForm({
       id: user.id || user._id,
@@ -165,41 +169,31 @@ const AdminDashboard = () => {
     setIsEditing(true);
   };
 
-  
   const handleUpdate = async () => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const payload = {
+        name: form.name,
+        username: form.username,
+        email: form.email,
+        role: form.role.toUpperCase(),
+        phone: form.phone,
+        location: form.location
+      };
 
-    const payload = {
-      name: form.name,
-      username: form.username, // 🔥 MUST
-      email: form.email,
-      role: form.role.toUpperCase(),
-      phone: form.phone,
-      location: form.location
-    };
+      if (form.password) payload.password = form.password;
 
-    if (form.password && form.password.trim() !== "") {
-      payload.password = form.password;
+      await axios.put(`${API}/users/${form.id}`, payload);
+
+      alert("Updated!");
+      resetForm();
+      fetchUsers();
+
+    } catch (err) {
+      console.error(err);
+      alert("Update failed");
     }
+  };
 
-    await axios.put(`${API}/users/${form.id}`, payload, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    alert("Updated!");
-    resetForm();
-    fetchUsers();
-
-  } catch (err) {
-    console.error(err);
-    alert("Update failed: " + (err.response?.data?.message || err.message));
-  }
-};
-
-  
   const handleDelete = async (id) => {
     if (!window.confirm("Delete user?")) return;
 
@@ -212,7 +206,14 @@ const AdminDashboard = () => {
     }
   };
 
-  
+  const handleViewFeedbacks = (userId) => {
+    const userFeedbacks = feedbacks.filter(
+      f => String(f.userId) === String(userId)
+    );
+    setSelectedFeedbacks(userFeedbacks);
+    setShowFeedbacks(true);
+  };
+
   const resetForm = () => {
     setForm({
       id: null,
@@ -227,6 +228,9 @@ const AdminDashboard = () => {
     setIsEditing(false);
   };
 
+  const formatRole = (role) =>
+    role ? role.charAt(0) + role.slice(1).toLowerCase() : "";
+
   if (loading) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
 
   return (
@@ -234,7 +238,7 @@ const AdminDashboard = () => {
       <div style={styles.card}>
         <h1>Admin Dashboard</h1>
 
-        
+        {/* Stats */}
         <div style={styles.statsGrid}>
           <div style={styles.statCard}>Total: {stats.total}</div>
           <div style={styles.statCard}>Farmers: {stats.farmers}</div>
@@ -242,7 +246,7 @@ const AdminDashboard = () => {
           <div style={styles.statCard}>Public: {stats.public}</div>
         </div>
 
-        
+        {/* Form */}
         <h2>{isEditing ? "Update User" : "Add User"}</h2>
 
         <input style={styles.input} name="name" placeholder="Name" value={form.name} onChange={handleChange} />
@@ -270,7 +274,7 @@ const AdminDashboard = () => {
           <button style={{ ...styles.button, ...styles.addBtn }} onClick={handleAdd}>Add User</button>
         )}
 
-        
+        {/* Table */}
         <table style={styles.table}>
           <thead>
             <tr>
@@ -280,6 +284,7 @@ const AdminDashboard = () => {
               <th style={styles.thtd}>Role</th>
               <th style={styles.thtd}>Phone</th>
               <th style={styles.thtd}>Location</th>
+              <th style={styles.thtd}>Feedbacks</th>
               <th style={styles.thtd}>Action</th>
             </tr>
           </thead>
@@ -290,17 +295,65 @@ const AdminDashboard = () => {
                 <td style={styles.thtd}>{u.name}</td>
                 <td style={styles.thtd}>{u.username}</td>
                 <td style={styles.thtd}>{u.email}</td>
-                <td style={styles.thtd}>{u.role}</td>
+                <td style={styles.thtd}>{formatRole(u.role)}</td>
                 <td style={styles.thtd}>{u.phone}</td>
                 <td style={styles.thtd}>{u.location}</td>
                 <td style={styles.thtd}>
+                  {
+                    feedbacks.filter(f =>
+                      String(f.userId) === String(u.id || u._id)
+                    ).length
+                  }
+                </td>
+                <td style={styles.thtd}>
                   <button style={{ ...styles.button, ...styles.editBtn }} onClick={() => handleEdit(u)}>Edit</button>
                   <button style={{ ...styles.button, ...styles.deleteBtn }} onClick={() => handleDelete(u.id || u._id)}>Delete</button>
+                  <button style={{ ...styles.button, ...styles.feedbackBtn }} onClick={() => handleViewFeedbacks(u.id || u._id)}>See Feedbacks</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        {/* Feedback Display */}
+        {showFeedbacks && (
+          <div style={{ marginTop: "30px" }}>
+            <h2>User Feedbacks</h2>
+
+            {selectedFeedbacks.length === 0 ? (
+              <p>No feedbacks for this user</p>
+            ) : (
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.thtd}>ID</th>
+                    <th style={styles.thtd}>Message</th>
+                    <th style={styles.thtd}>Rating</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {selectedFeedbacks.map(f => (
+                    <tr key={f.id}>
+                      <td style={styles.thtd}>{f.id}</td>
+                      <td style={styles.thtd}>{f.message}</td>
+                      <td style={styles.thtd}>{f.rating}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            <button
+              style={{ ...styles.button, ...styles.cancelBtn }}
+              onClick={() => setShowFeedbacks(false)}
+            >
+              Close
+            </button>
+          </div>
+        )}
+
+        {/* Navigate */}
         <button
           style={{
             padding: "10px 18px",
