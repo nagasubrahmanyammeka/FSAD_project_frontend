@@ -8,7 +8,9 @@ import LanguageSelector from "./components/LanguageSelector";
 import Schemes from "./pages/Schemes";
 import Devices from "./pages/Devices";
 import Technologies from "./pages/Technologies";
-
+import CreateSession from "./pages/CreateSession";
+import Sessions from "./pages/Sessions";
+import MySessions from "./pages/MySessions"
 // Components
 import UserProfile from "./components/UserProfile";
 import Update from "./components/Update";
@@ -64,6 +66,10 @@ function App() {
               <Route path="/schemes" element={<Schemes />} />
               <Route path="/devices" element={<Devices />} />
               <Route path="/technologies" element={<Technologies />} />
+              <Route path="/create-session" element={<CreateSession />} />
+              <Route path="/sessions" element={<Sessions />} />
+              <Route path="/my-sessions" element={<MySessions />} /><Route path="/my-sessions" element={<MySessions />} />
+
 
               {/* Protected: User Profile */}
               <Route

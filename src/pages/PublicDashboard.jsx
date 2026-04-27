@@ -366,6 +366,44 @@ const PublicDashboard = () => {
                 View Contents
               </button>
             </p>
+            {/* 🔥 NEW: VIEW SESSIONS */}
+          <div
+            className="card"
+            style={{
+              background: "#f8fafc",
+              padding: "15px 20px",
+              borderRadius: "10px",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+            }}
+          >
+            <h3 style={{ margin: "0 0 8px 0" }}>View Sessions</h3>
+
+            <p
+              style={{
+                fontSize: "14px",
+                color: "#555",
+                marginBottom: "10px",
+              }}
+            >
+              View all sessions and track registrations.
+            </p>
+
+            <button
+              onClick={() => navigate("/sessions")}
+              style={{
+                padding: "6px 14px",
+                fontSize: "14px",
+                borderRadius: "6px",
+                backgroundColor: "#3ae011ff",
+                color: "#0a0a0aff",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              View Sessions
+            </button>
+          </div>
+
             <p>
               To Submit Feedback About your Experience –{" "}
               <button

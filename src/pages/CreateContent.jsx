@@ -11,7 +11,8 @@ const CreateContent = () => {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  // 🔥 UPDATED SUBMIT (REAL API CALL)
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!file) {
@@ -19,24 +20,41 @@ const CreateContent = () => {
       return;
     }
 
-  
-    const contentData = {
-      fileName: file.name,
-      description,
-      author,
-    };
+    try {
+      const formData = new FormData();
+      formData.append("author", author);
+      formData.append("description", description);
+      formData.append("file", file);
 
-    console.log("Uploaded Content:", contentData);
+      const response = await fetch(
+        "http://localhost:2026/api/content/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-    alert("Content uploaded successfully! (Frontend only)");
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
 
-    
-    setFile(null);
-    setDescription("");
-    setAuthor("");
+      const data = await response.json();
+      console.log("Uploaded:", data);
 
-    
-    navigate("/all-content");
+      alert("Content uploaded successfully!");
+
+      // RESET FORM
+      setFile(null);
+      setDescription("");
+      setAuthor("");
+
+      // NAVIGATE
+      navigate("/all-content");
+
+    } catch (error) {
+      console.error(error);
+      alert("Error uploading content");
+    }
   };
 
   return (
@@ -53,6 +71,7 @@ const CreateContent = () => {
     >
       <h2 style={{ textAlign: "center", marginBottom: 20 }}>
         Upload Content (PDF, DOCX, MP4, etc.)
+        <br/>
       </h2>
 
       <form
@@ -63,6 +82,7 @@ const CreateContent = () => {
           gap: "20px",
         }}
       >
+        {/* AUTHOR */}
         <label
           style={{
             display: "flex",
@@ -84,6 +104,7 @@ const CreateContent = () => {
           />
         </label>
 
+        {/* DESCRIPTION */}
         <label
           style={{
             display: "flex",
@@ -105,6 +126,7 @@ const CreateContent = () => {
           />
         </label>
 
+        {/* FILE */}
         <label
           style={{
             display: "flex",
@@ -112,7 +134,9 @@ const CreateContent = () => {
             fontWeight: "bold",
           }}
         >
+  
           File:
+          <p>(Max File Size - 50GB)</p>
           <input
             type="file"
             onChange={handleFileChange}
@@ -122,6 +146,7 @@ const CreateContent = () => {
           />
         </label>
 
+        {/* BUTTON */}
         <button
           type="submit"
           style={{

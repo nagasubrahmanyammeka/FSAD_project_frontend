@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AllContent = () => {
+  const [content, setContent] = useState([]);
 
-  const [content] = useState([
-    {
-      id: 1,
-      author: "Dr. Ramesh",
-      description: "Organic farming techniques PDF",
-      fileName: "organic-farming.pdf"
-    },
-    {
-      id: 2,
-      author: "Dr. Priya",
-      description: "Soil health improvement guide",
-      fileName: "soil-guide.docx"
-    }
-  ]);
+  // 🔥 FETCH FROM BACKEND
+  useEffect(() => {
+    fetch("http://localhost:2026/api/content")
+      .then((res) => res.json())
+      .then((data) => setContent(data))
+      .catch((err) => console.error("Error fetching content:", err));
+  }, []);
 
   return (
     <div style={{ maxWidth: 800, margin: "40px auto", padding: 20 }}>
@@ -37,6 +31,25 @@ const AllContent = () => {
           <p><strong>Author:</strong> {item.author}</p>
           <p><strong>Description:</strong> {item.description}</p>
           <p><strong>File:</strong> {item.fileName}</p>
+
+          {/* 🔥 DOWNLOAD BUTTON */}
+          <a
+            href={`http://localhost:2026/api/content/download/${item.id}`}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "inline-block",
+              marginTop: "10px",
+              padding: "8px 14px",
+              backgroundColor: "#2a9d8f",
+              color: "#fff",
+              borderRadius: "6px",
+              textDecoration: "none",
+              fontWeight: "bold"
+            }}
+          >
+            Download
+          </a>
         </div>
       ))}
     </div>
