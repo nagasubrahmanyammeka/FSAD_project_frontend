@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:2026/api/admin";
+const API = "https://fsadprojectbackend-production-4192.up.railway.app/api/admin";
 
 const styles = {
   bg: {
@@ -128,7 +128,7 @@ const AdminDashboard = () => {
 
   const fetchFeedbacks = async () => {
     try {
-      const res = await axios.get("http://localhost:2026/api/feedback");
+      const res = await axios.get("https://fsadprojectbackend-production-4192.up.railway.app/api/feedback");
       setFeedbacks(res.data);
     } catch (err) {
       console.error("Error fetching feedbacks:", err);

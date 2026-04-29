@@ -21,7 +21,7 @@ const CreateSession = () => {
       const username = "testUser";
 
       const response = await fetch(
-        `http://localhost:2026/api/sessions?username=${username}`,
+        `https://fsadprojectbackend-production-4192.up.railway.app/api/sessions?username=${username}`,
         {
           method: "POST",
           headers: {

@@ -11,7 +11,7 @@ const Sessions = () => {
   // 🔥 FETCH SESSIONS
   const fetchSessions = async () => {
     try {
-      const res = await fetch("http://localhost:2026/api/sessions");
+      const res = await fetch("https://fsadprojectbackend-production-4192.up.railway.app/api/sessions");
 
       if (!res.ok) throw new Error("Failed to fetch sessions");
 
@@ -34,7 +34,7 @@ const Sessions = () => {
   const handleRegister = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:2026/api/sessions/register/${id}?username=${username}`,
+        `https://fsadprojectbackend-production-4192.up.railway.app/api/sessions/register/${id}?username=${username}`,
         { method: "POST" }
       );
 
@@ -55,7 +55,7 @@ const Sessions = () => {
   const handleUnregister = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:2026/api/sessions/unregister/${id}?username=${username}`,
+        `https://fsadprojectbackend-production-4192.up.railway.app/api/sessions/unregister/${id}?username=${username}`,
         { method: "POST" }
       );
 

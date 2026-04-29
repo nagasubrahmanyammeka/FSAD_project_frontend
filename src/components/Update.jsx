@@ -20,7 +20,7 @@ export default function Update() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:2026/api/auth/me", {
+        const res = await fetch("https://fsadprojectbackend-production-4192.up.railway.app/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -69,7 +69,7 @@ export default function Update() {
       console.log("Updating user ID:", userId); // ✅ DEBUG
 
       const res = await fetch(
-        `http://localhost:2026/api/users/${userId}`, // ✅ FIXED
+        `https://fsadprojectbackend-production-4192.up.railway.app/api/users/${userId}`,
         {
           method: "PUT",
           headers: {

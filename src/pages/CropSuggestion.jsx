@@ -23,7 +23,7 @@ const CropSuggestion = () => {
     try {
       console.log('🔵 Requesting crop suggestion:', formData);
 
-      const response = await axios.post('http://localhost:5000/api/suggestions', {
+      const response = await axios.post('https://fsadprojectbackend-production-4192.up.railway.app/api/suggestions', {
         ph: parseFloat(formData.ph),
         moisture: parseFloat(formData.moisture),
       });

@@ -36,7 +36,7 @@ const Register = () => {
 
     try {
       await axios.post(
-        `http://localhost:2026/api/otp/send?email=${formData.email}`
+        `https://fsadprojectbackend-production-4192.up.railway.app/api/otp/send?email=${formData.email}`
       );
       setOtpSent(true);
       setSuccess('OTP sent to your email');
@@ -66,7 +66,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:2026/api/otp/verify?email=${formData.email}&otp=${finalOtp}`
+        `https://fsadprojectbackend-production-4192.up.railway.app/api/otp/verify?email=${formData.email}&otp=${finalOtp}`
       );
 
       if (res.data === "OTP Verified") {

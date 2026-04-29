@@ -13,7 +13,7 @@ const MySessions = () => {
     const fetchMySessions = async () => {
       try {
         const res = await fetch(
-          `http://localhost:2026/api/sessions/my?username=${username}`
+          `https://fsadprojectbackend-production-4192.up.railway.app/api/sessions/my?username=${username}`
         );
 
         if (!res.ok) {
