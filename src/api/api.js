@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-const API = "https://fsad-project-backend.up.railway.app";
+const API = "https://fsadprojectbackend-production-4192.up.railway.app";
 
 // AUTH
 export const registerUser = (data) => axios.post(`${API}/auth/register`, data);
