@@ -38,7 +38,7 @@ export default function UserProfile() {
           return;
         }
 
-        const response = await fetch("http://localhost:2026/api/auth/me", {
+        const response = await fetch("https://fsadprojectbackend-production-4192.up.railway.app/api/auth/me", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -109,7 +109,7 @@ export default function UserProfile() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:2026/api/admin/users/${details._id}`,
+        `https://fsadprojectbackend-production-4192.up.railway.app/api/admin/users/${details._id}`,
         {
           method: "DELETE",
           headers: {

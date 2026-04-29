@@ -1,0 +1,19 @@
+{
+  "Home": "Home",
+  "Shop": "Shop",
+  "Contact": "Contact",
+  "Profile": "Profile",
+  "Login": "Login",
+  "Register": "Register",
+  "Logout": "Logout",
+  "Dashboard": "Dashboard",
+  "Welcome": "Welcome",
+  "Submit": "Submit",
+  "Cancel": "Cancel",
+  "Save": "Save",
+  "Delete": "Delete",
+  "Update": "Update",
+  "Loading": "Loading",
+  "Error": "Error",
+  "Success": "Success"
+}

@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
-// Use environment variable for backend API URL
+// Use environment variable for backend API URL, falling back to production
 const AUTH_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/auth`
-  : "http://localhost:2026/api/auth";
+  : "https://fsadprojectbackend-production-4192.up.railway.app/api/auth";
 
 export const AuthContext = createContext();
 
