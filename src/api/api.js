@@ -1,7 +1,9 @@
 
 import axios from "axios";
 
-const API = "https://fsadprojectbackend-production-4192.up.railway.app";
+const API =
+  import.meta.env.VITE_API_URL ||
+  "http://FSAD_project_backend.railway.internal:2026";
 
 // AUTH
 export const registerUser = (data) => axios.post(`${API}/auth/register`, data);
